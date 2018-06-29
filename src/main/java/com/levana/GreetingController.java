@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.levana.ibatis.SqlSessionFactoryConfig;
+
 @RestController
 public class GreetingController {
 
@@ -41,6 +43,8 @@ public class GreetingController {
 	public ResponseEntity<Map<String,Object>> testURL(RequestEntity<String> request,@PathVariable("loginID") String loginID){
 		request.getHeaders();
 		System.out.print(loginID);
+		SqlSessionFactoryConfig i = new SqlSessionFactoryConfig();
+		i.init();
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }
