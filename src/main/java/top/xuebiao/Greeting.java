@@ -1,4 +1,4 @@
-package com.levana;
+package top.xuebiao;
 
 public class Greeting {
 	private final long id;

@@ -1,4 +1,4 @@
-package com.levana;
+package top.xuebiao;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,10 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.levana.ibatis.SqlSessionFactoryConfig;
 
 @RestController
-public class GreetingController {
+public class UserController {
 
 	private static final String template = "Hello,%s";
 	private final AtomicLong counter = new AtomicLong();
@@ -33,6 +32,13 @@ public class GreetingController {
 		return r;
 	}
 
+	@RequestMapping("/login")
+	public Map<String,Object> login(RequestEntity<String> request,@RequestParam(defaultValue = "") String loginID, @RequestParam String password){
+		Map<String,Object> r = new HashMap<String, Object>();
+		r.put("code", "ok");
+		return r;
+	}
+
 	@RequestMapping("/test1")
 	public ResponseEntity<Map<String,Object>> test1(){
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -43,8 +49,6 @@ public class GreetingController {
 	public ResponseEntity<Map<String,Object>> testURL(RequestEntity<String> request,@PathVariable("loginID") String loginID){
 		request.getHeaders();
 		System.out.print(loginID);
-		SqlSessionFactoryConfig i = new SqlSessionFactoryConfig();
-		i.init();
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }
