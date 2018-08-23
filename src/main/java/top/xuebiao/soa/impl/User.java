@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import top.xuebiao.dao.UserMapper;
+import top.xuebiao.vo.UserData;
 
 @Service
 public class User implements top.xuebiao.soa.User {
@@ -15,4 +16,8 @@ public class User implements top.xuebiao.soa.User {
 		return userMapper.login(loginID, password);
 	}
 
+	@Override
+	public UserData getUserData(int userID) {
+		return userMapper.getUserData(userID);
+	}
 }

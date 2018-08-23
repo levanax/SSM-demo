@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import top.xuebiao.soa.User;
+import top.xuebiao.vo.UserData;
 
 
 @RestController
@@ -44,6 +45,8 @@ public class UserController {
 		boolean isSuccess = userSoa.login(loginID, password);
 		if(isSuccess) {
 			r.put("code", "ok");
+			UserData u = userSoa.getUserData(1);
+			System.out.print(u.getName());
 		}else {
 			r.put("code", "L00001");
 		}
