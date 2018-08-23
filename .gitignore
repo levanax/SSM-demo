@@ -1,3 +1,4 @@
 /target/classes
 /target/
 /src/main/resources/application-private.properties
+/src/main/resources/application-demo.properties

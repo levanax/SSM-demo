@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
@@ -12,12 +13,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import top.xuebiao.soa.User;
+
 
 @RestController
 public class UserController {
 
 	private static final String template = "Hello,%s";
 	private final AtomicLong counter = new AtomicLong();
+	
+	@Autowired
+	private User userSoa;
 
 	@RequestMapping("/greeting")
 	public Greeting greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
@@ -35,7 +41,12 @@ public class UserController {
 	@RequestMapping("/login")
 	public Map<String,Object> login(RequestEntity<String> request,@RequestParam(defaultValue = "") String loginID, @RequestParam String password){
 		Map<String,Object> r = new HashMap<String, Object>();
-		r.put("code", "ok");
+		boolean isSuccess = userSoa.login(loginID, password);
+		if(isSuccess) {
+			r.put("code", "ok");
+		}else {
+			r.put("code", "L00001");
+		}
 		return r;
 	}
 
