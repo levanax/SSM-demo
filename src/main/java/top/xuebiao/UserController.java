@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import top.xuebiao.soa.User;
+import top.xuebiao.service.User;
+import top.xuebiao.vo.Greeting;
 import top.xuebiao.vo.UserData;
 
 
@@ -24,7 +25,7 @@ public class UserController {
 	private final AtomicLong counter = new AtomicLong();
 	
 	@Autowired
-	private User userSoa;
+	private User userService;
 
 	@RequestMapping("/greeting")
 	public Greeting greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
@@ -42,10 +43,10 @@ public class UserController {
 	@RequestMapping("/login")
 	public Map<String,Object> login(RequestEntity<String> request,@RequestParam(defaultValue = "") String loginID, @RequestParam String password){
 		Map<String,Object> r = new HashMap<String, Object>();
-		boolean isSuccess = userSoa.login(loginID, password);
+		boolean isSuccess = userService.login(loginID, password);
 		if(isSuccess) {
 			r.put("code", "ok");
-			UserData u = userSoa.getUserData(1);
+			UserData u = userService.getUserData(1);
 			System.out.print(u.getName());
 		}else {
 			r.put("code", "L00001");
