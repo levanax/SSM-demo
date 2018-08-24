@@ -1,11 +1,12 @@
 package top.xuebiao.controller;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.RequestEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,6 +17,7 @@ import top.xuebiao.common.Constant;
 import top.xuebiao.service.IProductService;
 import top.xuebiao.vo.Product;
 
+@CrossOrigin(origins = "*")
 @RequestMapping(value = "products")
 @RestController
 public class ProductController {
@@ -45,6 +47,7 @@ public class ProductController {
 		if(productRes != null) {
 			r.put(Constant.DATA, productRes);
 		}
+		Collection<String> a = null;
 		return r;
 	}
 

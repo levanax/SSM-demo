@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +24,7 @@ import top.xuebiao.service.IUserService;
 import top.xuebiao.vo.Greeting;
 import top.xuebiao.vo.UserData;
 
+@CrossOrigin(origins = {"*"})
 @RequestMapping(value="user")
 @RestController
 public class UserController {
