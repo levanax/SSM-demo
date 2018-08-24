@@ -1,4 +1,4 @@
-package top.xuebiao.ctrl;
+package top.xuebiao.ctrl.user;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import top.xuebiao.service.User;
+import top.xuebiao.service.IUserService;
 import top.xuebiao.vo.Greeting;
 import top.xuebiao.vo.UserData;
 
@@ -25,7 +25,7 @@ public class UserController {
 	private final AtomicLong counter = new AtomicLong();
 	
 	@Autowired
-	private User userService;
+	private IUserService userService;
 
 	@RequestMapping("/greeting")
 	public Greeting greeting(@RequestParam(value = "name", defaultValue = "World") String name) {

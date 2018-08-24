@@ -2,7 +2,7 @@ package top.xuebiao.service;
 
 import top.xuebiao.vo.UserData;
 
-public interface User {
+public interface IUserService {
 
 	boolean login(String loginID, String password);
 	

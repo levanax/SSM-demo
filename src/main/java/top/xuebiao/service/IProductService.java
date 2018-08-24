@@ -4,6 +4,6 @@ import java.util.List;
 
 import top.xuebiao.vo.Product;
 
-public interface ProductService {
+public interface IProductService {
 	List<Product> getProducts();
 }

@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import top.xuebiao.service.ProductService;
+import top.xuebiao.service.IProductService;
 import top.xuebiao.vo.Product;
 
 @RestController
 public class ProductController {
 
 	@Autowired
-	private ProductService productService;
+	private IProductService productService;
 
 	@RequestMapping("/product")
 	public Map<String,Object> login(RequestEntity<String> request){

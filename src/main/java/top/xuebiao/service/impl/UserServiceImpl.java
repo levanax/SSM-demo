@@ -7,7 +7,7 @@ import top.xuebiao.dao.UserMapper;
 import top.xuebiao.vo.UserData;
 
 @Service
-public class User implements top.xuebiao.service.User {
+public class UserServiceImpl implements top.xuebiao.service.IUserService {
 
 	@Autowired
 	private UserMapper userMapper;

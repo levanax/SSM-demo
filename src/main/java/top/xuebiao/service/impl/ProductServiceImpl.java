@@ -9,7 +9,7 @@ import top.xuebiao.vo.Product;
 import top.xuebiao.dao.ProductMapper;
 
 @Service
-public class ProductServiceImpl implements top.xuebiao.service.ProductService {
+public class ProductServiceImpl implements top.xuebiao.service.IProductService {
 
 	@Autowired
 	private ProductMapper productMapper;
