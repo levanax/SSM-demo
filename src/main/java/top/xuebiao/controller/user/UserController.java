@@ -11,6 +11,7 @@ import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,6 +23,7 @@ import top.xuebiao.service.IUserService;
 import top.xuebiao.vo.Greeting;
 import top.xuebiao.vo.UserData;
 
+@RequestMapping(value="user")
 @RestController
 public class UserController {
 
@@ -45,10 +47,17 @@ public class UserController {
 		return r;
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	/**
+	 * user login 登入请求
+	 * @param request
+	 * @param loginID
+	 * @param password
+	 * @return
+	 */
+	@PostMapping(value = "/login")
 	@ResponseBody
-	public ResponseEntity<Map<String, Object>>  login(RequestEntity<String> request, @RequestBody(required = false) String loginID,
-			@RequestBody(required = false) String password) {
+	public ResponseEntity<Map<String, Object>>  login(RequestEntity<String> request,  String loginID,
+			 String password) {
 		Map<String, Object> r = new HashMap<String, Object>();
 		boolean isSuccess = userService.login(loginID, password);
 		if (isSuccess) {
