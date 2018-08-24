@@ -10,4 +10,8 @@ import top.xuebiao.vo.Product;
 public interface ProductMapper {
 
 	List<Product> getProducts();
+	
+	int addProduct(Product product);
+	
+	int updateProduct(Product product);
 }

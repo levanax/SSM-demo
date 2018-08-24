@@ -3,9 +3,20 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.xuebiao.dao.ProductMapper">
-  <select id="getProducts" resultType="top.xuebiao.vo.Product">
-  select
-   *
-  from product_tbl
-</select>
+	<select id="getProducts" resultType="top.xuebiao.vo.Product">
+		select
+		*
+		from product_tbl
+	</select>
+	<select id="addProduct" resultType="top.xuebiao.vo.Product">
+		insert into product_tbl(name, spec, weight, remark)
+		VALUES(#{product.name}, #{product.spec},
+		#{product.weight},
+		#{product.remark}, );
+	</select>
+	<select id="updateProduct" resultType="top.xuebiao.vo.Product">
+		select
+		*
+		from product_tbl
+	</select>
 </mapper>

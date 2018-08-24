@@ -19,4 +19,25 @@ public class ProductServiceImpl implements top.xuebiao.service.IProductService {
 		return productMapper.getProducts();
 	}
 
+	@Override
+	public Product addProduct(Product product) {
+		Product result = null;
+		int productID = productMapper.addProduct(product);
+		if(productID != 0) {
+			product.setId(productID);
+			result = product;
+		}
+		return result;
+	}
+
+	@Override
+	public Product updateProduct(Product product) {
+		Product result = null;
+		int productID = productMapper.updateProduct(product);
+		if(productID != 0) {
+			result = product;
+		}
+		return result;
+	}
+
 }

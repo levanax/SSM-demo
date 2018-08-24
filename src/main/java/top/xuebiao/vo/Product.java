@@ -2,19 +2,13 @@ package top.xuebiao.vo;
 
 public class Product {
 
-	private String id;
+	private int id;
 	private String name;
 	private String spec;
 	private String weight;
 	private String remark;
 	
 	
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
 	public String getName() {
 		return name;
 	}
@@ -38,5 +32,11 @@ public class Product {
 	}
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 }

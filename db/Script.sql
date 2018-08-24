@@ -7,7 +7,7 @@ CREATE TABLE product_tbl(
 )
 auto_increment = 1;
 
-insert into product_tbl(name) VALUES('电阻');
+insert into product_tbl(name) VALUES('电容');
 
 CREATE TABLE product_store_tbl(
  product_id int(4) not null,
@@ -19,9 +19,9 @@ CREATE TABLE product_store_tbl(
 
 CREATE TABLE product_store_record_tbl(
  product_id int(4) not null,
- instructions VARCHAR(6) not null, #进/出
+ instructions VARCHAR(6) not null, #买入
  quantity int(10) not null,
- price DOUBLE ,# 进货时有单价，出库不一定是卖出，所以可能为空
+ price DOUBLE ,
  remark VARCHAR(64) ,
  update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
  FOREIGN KEY (product_id) REFERENCES product_tbl(id)

@@ -6,4 +6,8 @@ import top.xuebiao.vo.Product;
 
 public interface IProductService {
 	List<Product> getProducts();
+	
+	Product addProduct(Product product);
+	
+	Product updateProduct(Product product);
 }
