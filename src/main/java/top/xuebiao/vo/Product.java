@@ -1,9 +1,18 @@
 package top.xuebiao.vo;
 
+import javax.validation.constraints.NotBlank;
+
+import org.hibernate.validator.constraints.Length;
+
+
 public class Product {
 
+	@NotBlank(message="id not allow null")
 	private int id;
+	
+	@Length(max=10,message="name长度不能超过10")
 	private String name;
+	
 	private String spec;
 	private String weight;
 	private String remark;

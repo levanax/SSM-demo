@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
+import javax.validation.constraints.NotBlank;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -42,10 +44,13 @@ public class UserController {
 
 	@RequestMapping("/test")
 	public Map<String, Object> test(RequestEntity<String> request,
-			@RequestParam(value = "p2", defaultValue = "test") String p1) {
+			@RequestParam(value = "p2", defaultValue = "test") String p1) throws Exception {
 		String[] arr = { "a", "b", "c", p1 };
 		Map<String, Object> r = new HashMap<String, Object>();
 		r.put("list", arr);
+		if(arr.length > 0) {
+			throw new Exception("eeee");
+		}
 		return r;
 	}
 
@@ -55,11 +60,12 @@ public class UserController {
 	 * @param loginID
 	 * @param password
 	 * @return
+	 * @throws Exception 
 	 */
 	@PostMapping(value = "/login")
 	@ResponseBody
 	public ResponseEntity<Map<String, Object>>  login(RequestEntity<String> request,  String loginID,
-			 String password) {
+			String password){
 		Map<String, Object> r = new HashMap<String, Object>();
 		boolean isSuccess = userService.login(loginID, password);
 		if (isSuccess) {

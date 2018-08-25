@@ -4,6 +4,9 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.RequestEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -41,7 +44,7 @@ public class ProductController {
 	/**
 	 */
 	@RequestMapping(method = RequestMethod.POST)
-	public Map<String, Object> postProduct(RequestEntity<String> request, Product product) {
+	public Map<String, Object> postProduct(RequestEntity<String> request, @Valid Product product) {
 		Map<String, Object> r = new HashMap<String, Object>();
 		Product productRes = productService.addProduct(product);
 		if(productRes != null) {
