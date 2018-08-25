@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
-import javax.validation.constraints.NotBlank;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -30,7 +30,8 @@ import top.xuebiao.vo.UserData;
 @RequestMapping(value="user")
 @RestController
 public class UserController {
-
+	Logger logger = LoggerFactory.getLogger(UserController.class);
+	
 	private static final String template = "Hello,%s";
 	private final AtomicLong counter = new AtomicLong();
 
@@ -66,6 +67,7 @@ public class UserController {
 	@ResponseBody
 	public ResponseEntity<Map<String, Object>>  login(RequestEntity<String> request,  String loginID,
 			String password){
+		logger.info("Login: loginID="+ loginID +", password="+password);;
 		Map<String, Object> r = new HashMap<String, Object>();
 		boolean isSuccess = userService.login(loginID, password);
 		if (isSuccess) {
