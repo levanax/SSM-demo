@@ -1,4 +1,4 @@
-package top.xuebiao.common;
+package top.xuebiao.constant;
 
 public  final class Constant {
 

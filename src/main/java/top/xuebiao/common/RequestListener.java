@@ -5,16 +5,16 @@ import javax.servlet.ServletRequestListener;
 import javax.servlet.annotation.WebListener;
 
 @WebListener
-public class ManagerLister implements ServletRequestListener {
+public class RequestListener implements ServletRequestListener {
 
 	@Override
 	public void requestDestroyed(ServletRequestEvent arg0) {
-		System.out.println("ManagerLister requestDestroyed");
+		System.out.println("RequestListener requestDestroyed");
 	}
 
 	@Override
 	public void requestInitialized(ServletRequestEvent arg0) {
-		System.out.println("ManagerLister requestInitialized");
+		System.out.println("RequestListener requestInitialized");
 	}
 
 }

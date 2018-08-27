@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import top.xuebiao.common.Constant;
+import top.xuebiao.common.Response;
+import top.xuebiao.constant.Constant;
+import top.xuebiao.constant.ResponseCode;
 import top.xuebiao.service.IProductService;
 import top.xuebiao.vo.Product;
 
@@ -35,10 +37,8 @@ public class ProductController {
 	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public Map<String, Object> getProducts(RequestEntity<String> request) {
-		Map<String, Object> r = new HashMap<String, Object>();
 		List<Product> products = productService.getProducts();
-		r.put(Constant.DATA, products);
-		return r;
+		return Response.success(products);
 	}
 
 	/**
@@ -49,9 +49,10 @@ public class ProductController {
 		Product productRes = productService.addProduct(product);
 		if(productRes != null) {
 			r.put(Constant.DATA, productRes);
+			return Response.success(productRes);
+		}else {
+			return Response.error(ResponseCode.R0001, ResponseCode.R0001_DESC);
 		}
-		Collection<String> a = null;
-		return r;
 	}
 
 	/**

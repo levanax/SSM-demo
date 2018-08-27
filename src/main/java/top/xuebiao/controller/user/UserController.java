@@ -26,12 +26,12 @@ import top.xuebiao.service.IUserService;
 import top.xuebiao.vo.Greeting;
 import top.xuebiao.vo.UserData;
 
-@CrossOrigin(origins = {"*"})
-@RequestMapping(value="user")
+@CrossOrigin(origins = { "*" })
+@RequestMapping(value = "user")
 @RestController
 public class UserController {
 	Logger logger = LoggerFactory.getLogger(UserController.class);
-	
+
 	private static final String template = "Hello,%s";
 	private final AtomicLong counter = new AtomicLong();
 
@@ -49,7 +49,7 @@ public class UserController {
 		String[] arr = { "a", "b", "c", p1 };
 		Map<String, Object> r = new HashMap<String, Object>();
 		r.put("list", arr);
-		if(arr.length > 0) {
+		if (arr.length > 0) {
 			throw new Exception("eeee");
 		}
 		return r;
@@ -57,17 +57,20 @@ public class UserController {
 
 	/**
 	 * user login 登入请求
+	 * 
 	 * @param request
 	 * @param loginID
 	 * @param password
 	 * @return
-	 * @throws Exception 
+	 * @throws Exception
 	 */
-	@PostMapping(value = "/login")
+	@PostMapping(value = "/login", headers="Content-Type=application/json")
 	@ResponseBody
-	public ResponseEntity<Map<String, Object>>  login(RequestEntity<String> request,  String loginID,
-			String password){
-		logger.info("Login: loginID="+ loginID +", password="+password);;
+	public ResponseEntity<Map<String, Object>> login(@RequestBody Map<String, String> user) {
+		String loginID = user.get("loginID");
+		String password = user.get("password");
+		logger.info("Login: loginID=" + loginID + ", password=" + password);
+		;
 		Map<String, Object> r = new HashMap<String, Object>();
 		boolean isSuccess = userService.login(loginID, password);
 		if (isSuccess) {
@@ -77,7 +80,7 @@ public class UserController {
 		} else {
 			r.put("code", "L00001");
 		}
-		return new ResponseEntity<>(r,HttpStatus.OK);
+		return new ResponseEntity<>(r, HttpStatus.OK);
 	}
 
 	@RequestMapping("/test1")
