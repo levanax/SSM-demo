@@ -12,7 +12,7 @@
 		insert into product_tbl(name, spec, weight, remark)
 		VALUES(#{product.name}, #{product.spec},
 		#{product.weight},
-		#{product.remark}, );
+		#{product.remark} );
 	</select>
 	<select id="updateProduct" resultType="top.xuebiao.vo.Product">
 		select

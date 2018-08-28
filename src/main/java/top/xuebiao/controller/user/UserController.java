@@ -64,13 +64,13 @@ public class UserController {
 	 * @return
 	 * @throws Exception
 	 */
-	@PostMapping(value = "/login", headers="Content-Type=application/json")
+	@PostMapping(value = "/login")
 	@ResponseBody
 	public ResponseEntity<Map<String, Object>> login(@RequestBody Map<String, String> user) {
 		String loginID = user.get("loginID");
 		String password = user.get("password");
 		logger.info("Login: loginID=" + loginID + ", password=" + password);
-		;
+		
 		Map<String, Object> r = new HashMap<String, Object>();
 		boolean isSuccess = userService.login(loginID, password);
 		if (isSuccess) {

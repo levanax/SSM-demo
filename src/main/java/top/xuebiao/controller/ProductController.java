@@ -9,8 +9,10 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,15 +38,15 @@ public class ProductController {
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.GET)
-	public Map<String, Object> getProducts(RequestEntity<String> request) {
+	public ResponseEntity<Map<String, Object>> getProducts() {
 		List<Product> products = productService.getProducts();
 		return Response.success(products);
 	}
 
 	/**
 	 */
-	@RequestMapping(method = RequestMethod.POST)
-	public Map<String, Object> postProduct(RequestEntity<String> request, @Valid Product product) {
+	@RequestMapping(method = RequestMethod.POST )
+	public ResponseEntity<Map<String, Object>> postProduct(@RequestBody Product product) {
 		Map<String, Object> r = new HashMap<String, Object>();
 		Product productRes = productService.addProduct(product);
 		if(productRes != null) {

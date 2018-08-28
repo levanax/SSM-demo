@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.exceptions.PersistenceException;
 import org.springframework.dao.DataAccessException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -24,7 +25,7 @@ public class CommonExceptionHandler {
 
     @ExceptionHandler({CannotGetJdbcConnectionException.class, PersistenceException.class, SQLException.class, DataAccessException.class})
     @ResponseBody
-    public Map<String,Object> persistenceExceptionHandler(Exception e){
+    public ResponseEntity<Map<String, Object>> persistenceExceptionHandler(Exception e){
     	e.printStackTrace();
         return Response.error(ResponseCode.D0001,  ResponseCode.D0001_DESC); 
     }
@@ -36,7 +37,7 @@ public class CommonExceptionHandler {
      */
     @ExceptionHandler(Exception.class)
     @ResponseBody
-    public Map<String,Object> exceptionHandler(Exception e){
+    public ResponseEntity<Map<String, Object>> exceptionHandler(Exception e){
     	e.printStackTrace();
         return Response.error(ResponseCode.S0001,  ResponseCode.S0001_DESC); 
     }

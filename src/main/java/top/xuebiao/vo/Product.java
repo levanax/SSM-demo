@@ -7,9 +7,10 @@ import org.hibernate.validator.constraints.Length;
 
 public class Product {
 
-	@NotBlank(message="id not allow null")
-	private int id;
 	
+	private Integer id;
+	
+	@NotBlank(message="name not allow null")
 	@Length(max=10,message="name长度不能超过10")
 	private String name;
 	
@@ -42,10 +43,10 @@ public class Product {
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 }
