@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import top.xuebiao.vo.Product;
-import top.xuebiao.dao.ProductMapper;
+import top.xuebiao.dao.IProductMapper;
 
 @Service
 public class ProductServiceImpl implements top.xuebiao.service.IProductService {
 
 	@Autowired
-	private ProductMapper productMapper;
+	private IProductMapper productMapper;
 	
 	@Override
 	public List<Product> getProducts() {		

@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Select;
 import top.xuebiao.vo.UserData;
 
 @Mapper
-public interface UserMapper {
+public interface IUserMapper {
 
 	@Select("select count(*)>0 from user_tbl where login_id = #{loginID} and login_password = #{password}")
 	boolean login(@Param("loginID") String loginID,@Param("password") String password);

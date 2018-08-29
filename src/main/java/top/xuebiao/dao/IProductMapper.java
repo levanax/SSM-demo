@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import top.xuebiao.vo.Product;
 
 @Mapper
-public interface ProductMapper {
+public interface IProductMapper {
 
 	List<Product> getProducts();
 	
@@ -17,4 +17,5 @@ public interface ProductMapper {
 	int updateProduct(@Param(value="product") Product product);
 	
 	int deleteProduct(@Param(value="product") Product product);
+	
 }
