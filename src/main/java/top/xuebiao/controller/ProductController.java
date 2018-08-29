@@ -60,12 +60,25 @@ public class ProductController {
 	/**
 	 */
 	@RequestMapping(value="/{id}",method = RequestMethod.PUT)
-	public Map<String, Object> putProduct(Product product, @PathVariable  int id) {
-		Map<String, Object> r = new HashMap<String, Object>();
-		Product productRes = productService.addProduct(product);
+	public ResponseEntity<Map<String, Object>> putProduct(@RequestBody Product product, @PathVariable  int id) {
+		product.setId(id);
+		Product productRes = productService.updateProduct(product);
 		if(productRes != null) {
-			r.put(Constant.DATA, productRes);
+			return Response.success(productRes);
+		}else {
+			return Response.error(ResponseCode.R0001, ResponseCode.R0001_DESC);
 		}
-		return r;
+	}
+	
+	/**
+	 */
+	@RequestMapping(value="/{id}",method = RequestMethod.DELETE)
+	public ResponseEntity<Map<String, Object>> deleteProduct(@PathVariable  int id) {
+		boolean success = productService.deleteProduct(id);
+		if(success) {
+			return Response.success("");
+		}else {
+			return Response.error(ResponseCode.R0001, ResponseCode.R0001_DESC);
+		}
 	}
 }

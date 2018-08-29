@@ -22,9 +22,8 @@ public class ProductServiceImpl implements top.xuebiao.service.IProductService {
 	@Override
 	public Product addProduct(Product product) {
 		Product result = null;
-		int productID = productMapper.addProduct(product);
-		if(productID != 0) {
-			product.setId(productID);
+		int successRow = productMapper.addProduct(product);
+		if(successRow == 1 ) {
 			result = product;
 		}
 		return result;
@@ -33,9 +32,21 @@ public class ProductServiceImpl implements top.xuebiao.service.IProductService {
 	@Override
 	public Product updateProduct(Product product) {
 		Product result = null;
-		int productID = productMapper.updateProduct(product);
-		if(productID != 0) {
+		int successRow = productMapper.updateProduct(product);
+		if(successRow == 1 ) {
 			result = product;
+		}
+		return result;
+	}
+
+	@Override
+	public boolean deleteProduct(int productID) {
+		boolean result = false;
+		Product product = new Product();
+		product.setId(productID);
+		int successRow = productMapper.deleteProduct(product);
+		if(successRow == 1 ) {
+			result = true;
 		}
 		return result;
 	}

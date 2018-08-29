@@ -8,15 +8,25 @@
 		*
 		from product_tbl
 	</select>
-	<select id="addProduct" resultType="top.xuebiao.vo.Product">
-		insert into product_tbl(name, spec, weight, remark)
+	<insert id="addProduct" useGeneratedKeys="true"
+		keyProperty="product.id" parameterType="top.xuebiao.vo.Product">
+		insert into product_tbl(name,
+		spec, weight, remark)
 		VALUES(#{product.name}, #{product.spec},
 		#{product.weight},
-		#{product.remark} );
-	</select>
-	<select id="updateProduct" resultType="top.xuebiao.vo.Product">
-		select
-		*
-		from product_tbl
-	</select>
+		#{product.remark} )
+	</insert>
+	<update id="updateProduct" keyProperty="product.id"
+		parameterType="top.xuebiao.vo.Product">
+		update product_tbl set
+		name = #{product.name},
+		spec =
+		#{product.spec},
+		weight = #{product.weight},
+		remark = #{product.remark}
+		where id = #{product.id}
+	</update>
+	<delete id="deleteProduct" parameterType="top.xuebiao.vo.Product">
+		delete from product_tbl where id = #{product.id}
+	</delete>
 </mapper>

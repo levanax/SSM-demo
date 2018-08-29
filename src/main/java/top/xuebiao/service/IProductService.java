@@ -10,4 +10,6 @@ public interface IProductService {
 	Product addProduct(Product product);
 	
 	Product updateProduct(Product product);
+	
+	boolean deleteProduct(int productID);
 }

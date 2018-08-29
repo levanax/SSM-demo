@@ -15,4 +15,6 @@ public interface ProductMapper {
 	int addProduct(@Param(value="product") Product product);
 	
 	int updateProduct(@Param(value="product") Product product);
+	
+	int deleteProduct(@Param(value="product") Product product);
 }
