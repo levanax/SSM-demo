@@ -17,6 +17,9 @@ public class StoreRecord {
 	private String remark;
 	private Date updateDate;
 	
+	private String productName;
+	private String productSpec;
+	
 	public StoreRecord() {
 		super();
 	}
@@ -81,5 +84,21 @@ public class StoreRecord {
 	}
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
+	}
+
+	public String getProductSpec() {
+		return productSpec;
+	}
+
+	public void setProductSpec(String productSpec) {
+		this.productSpec = productSpec;
+	}
+
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
 }

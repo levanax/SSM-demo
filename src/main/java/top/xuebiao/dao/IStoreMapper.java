@@ -22,4 +22,8 @@ public interface IStoreMapper {
 	
 	
 	int addStoreRecord(@Param(value="storeRecord") StoreRecord storeRecord);
+	
+	List<StoreRecord> getStoreRecords();
+	
+	List<StoreRecord> getSingleProductStoreRecords(@Param(value="storeRecord") StoreRecord storeRecord);
 }

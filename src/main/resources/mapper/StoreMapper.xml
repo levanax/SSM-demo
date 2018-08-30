@@ -5,24 +5,20 @@
 <mapper namespace="top.xuebiao.dao.IStoreMapper">
 	<select id="getStores" resultType="top.xuebiao.vo.Store">
 		select
-		store_tbl.id,store_tbl.product_id as
-		'productID',store_tbl.total,store_tbl.remark,store_tbl.update_date as
-		'updateDate',
-		product_tbl.name as 'productName',product_tbl.spec as
-		'productSpec' from
-		store_tbl,product_tbl where
+		store_tbl.id,store_tbl.product_id as 'productID',store_tbl.total,store_tbl.remark,store_tbl.update_date as 'updateDate',
+		 product_tbl.name as 'productName',product_tbl.spec as 'productSpec' 
+		 from 
+		 store_tbl,product_tbl where
 		product_tbl.id=store_tbl.product_id order by product_tbl.id
 	</select>
 
 	<select id="getStore" resultType="top.xuebiao.vo.Store">
-		select
-		store_tbl.id,store_tbl.product_id as
-		'productID',store_tbl.total,store_tbl.remark,store_tbl.update_date as
-		'updateDate',
-		product_tbl.name as 'productName',product_tbl.spec as
-		'productSpec' from
-		store_tbl,product_tbl where
-		product_tbl.id=store_tbl.product_id order by product_tbl.id and store_tbl.product_id=#{store.productID}
+		 select
+		 store_tbl.id,store_tbl.product_id as 'productID',store_tbl.total,store_tbl.remark,store_tbl.update_date as 'updateDate',
+		 product_tbl.name as 'productName',product_tbl.spec as 'productSpec' 
+		 from
+		 store_tbl,product_tbl where
+		 product_tbl.id=store_tbl.product_id order by product_tbl.id and store_tbl.product_id=#{store.productID}
 	</select>
 
 
@@ -30,7 +26,7 @@
 		keyProperty="store.id" parameterType="top.xuebiao.vo.Store">
 		insert into store_tbl(product_id,
 		total, remark)
-		VALUES(#{store.product_id}, #{store.total},
+		VALUES(#{store.productID}, #{store.total},
 		#{store.remark} )
 	</insert>
 
@@ -48,4 +44,24 @@
 		instructions, quantity, price, remark)
 		VALUES(#{storeRecord.productID},#{storeRecord.userID},#{storeRecord.instuctions},#{storeRecord.quantity},#{storeRecord.price},#{storeRecord.remark})
 	</insert>
+	
+	<select id="getStoreRecords" resultType="top.xuebiao.vo.StoreRecord">
+		SELECT 
+		s.id,s.product_id as 'productID',
+		s.user_id as 'userID',s.instructions,
+		s.quantity,s.price ,s.remark,
+		s.update_date as 'updateDate', p.name as 'productName',
+		p.spec as 'productSpec' 
+		from store_record_tbl as s left JOIN product_tbl as p on s.product_id=p.id
+	</select>
+	
+	<select id="getSingleProductStoreRecords" resultType="top.xuebiao.vo.StoreRecord">
+		SELECT 
+		s.id,s.product_id as 'productID',
+		s.user_id as 'userID',s.instructions,
+		s.quantity,s.price ,s.remark,
+		s.update_date as 'updateDate', p.name as 'productName',
+		p.spec as 'productSpec' 
+		from store_record_tbl as s left JOIN product_tbl as p on s.product_id=p.id WHERE s.product_id=#{storeRecord.productID}
+	</select>
 </mapper>

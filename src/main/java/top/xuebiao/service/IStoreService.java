@@ -10,9 +10,9 @@ public interface IStoreService {
 
 	List<Store> getStores();
 
-	List<StoreRecord> getStoreRecords(int ProductID);
+	List<StoreRecord> getStoreRecords();
 
-	List<StoreRecord> getSingleStoreRecords(int ProductID);
+	List<StoreRecord> getSingleProductStoreRecords(int productID);
 	
 	StoreRecord addStoreRecord(StoreRecord storeRecord) throws AppException;
 	

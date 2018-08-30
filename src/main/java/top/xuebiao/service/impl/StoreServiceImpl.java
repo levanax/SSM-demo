@@ -25,15 +25,15 @@ public class StoreServiceImpl implements IStoreService {
 	}
 
 	@Override
-	public List<StoreRecord> getStoreRecords(int ProductID) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<StoreRecord> getStoreRecords() {
+		return storeMapper.getStoreRecords();
 	}
 
 	@Override
-	public List<StoreRecord> getSingleStoreRecords(int ProductID) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<StoreRecord> getSingleProductStoreRecords(int productID) {
+		StoreRecord  sr = new StoreRecord();
+		sr.setProductID(productID);
+		return storeMapper.getSingleProductStoreRecords(sr);
 	}
 
 	@Override
