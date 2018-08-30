@@ -20,6 +20,13 @@ public class Response {
         result.put(Response.MESSAGE, message);
         return new ResponseEntity<>(result, HttpStatus.INTERNAL_SERVER_ERROR); 
     }
+
+	public static ResponseEntity<Map<String, Object>> reply(String code, String message, HttpStatus httpStatus){
+        Map<String,Object> result = new HashMap<String,Object>();
+        result.put(Response.CODE, code);
+        result.put(Response.MESSAGE, message);
+        return new ResponseEntity<>(result, httpStatus); 
+    }
 	
 	public static ResponseEntity<Map<String, Object>> success(Object o){
         Map<String,Object> result = new HashMap<String,Object>();

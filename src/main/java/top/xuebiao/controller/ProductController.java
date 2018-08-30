@@ -40,6 +40,17 @@ public class ProductController {
 	}
 
 	/**
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="/{id}", method = RequestMethod.GET)
+	public ResponseEntity<Map<String, Object>> getProduct(@PathVariable  int id) {
+		Product product = productService.getProduct(id);
+		return Response.success(product);
+	}
+	
+	/**
 	 */
 	@RequestMapping(method = RequestMethod.POST )
 	public ResponseEntity<Map<String, Object>> postProduct(@RequestBody Product product) {

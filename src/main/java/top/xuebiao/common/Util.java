@@ -17,4 +17,25 @@ public class Util {
 	public static boolean isNotEmpty(String s) {
 		return !isEmpty(s);
 	}
+	
+	public static Integer  add(Integer a, Integer b) {
+		
+		return a + b;
+	}
+	
+	public static String  add(String a, String b) {
+		String result = null;
+		
+		return result;
+	}
+
+	public static Integer  minus(Integer a, Integer b) {
+		
+		return a - b;
+	}
+	public static String  minus(String a, String b) {
+		String result = null;
+		
+		return result;
+	}
 }

@@ -8,6 +8,12 @@
 		*
 		from product_tbl
 	</select>
+	<select id="getProduct" resultType="top.xuebiao.vo.Product">
+		select
+		*
+		from product_tbl where
+		id = #{product.id}
+	</select>
 	<insert id="addProduct" useGeneratedKeys="true"
 		keyProperty="product.id" parameterType="top.xuebiao.vo.Product">
 		insert into product_tbl(name,
@@ -26,7 +32,8 @@
 		remark = #{product.remark}
 		where id = #{product.id}
 	</update>
-	<delete id="deleteProduct" parameterType="top.xuebiao.vo.Product">
+	<delete id="deleteProduct"
+		parameterType="top.xuebiao.vo.Product">
 		delete from product_tbl where id = #{product.id}
 	</delete>
 </mapper>

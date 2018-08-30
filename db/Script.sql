@@ -27,10 +27,14 @@ CREATE TABLE store_record_tbl(
  quantity int(10) not null,
  price DOUBLE ,
  remark VARCHAR(64) ,
- update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+ update_date TIMESTAMP ON UPDATE CURRENT_TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
  FOREIGN KEY (product_id) REFERENCES product_tbl(id),
  FOREIGN KEY (user_id) REFERENCES user_tbl(id)
 )
+
+INSERT INTO store_record_tbl(product_id, user_id, instructions, quantity, price, remark)
+VALUES(1,1,'import',1000,23.2,'note')
+
 
 select store_tbl.id,store_tbl.product_id as 'productID',store_tbl.total,store_tbl.remark,store_tbl.update_date as 'updateDate',
 product_tbl.name as 'productName',product_tbl.spec as 'productSpec' from store_tbl,product_tbl where product_tbl.id=store_tbl.product_id order by product_tbl.id 

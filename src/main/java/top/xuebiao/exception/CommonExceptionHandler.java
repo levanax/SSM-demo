@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.exceptions.PersistenceException;
 import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -22,6 +23,13 @@ import top.xuebiao.constant.ResponseCode;
 @ControllerAdvice
 public class CommonExceptionHandler {
 
+
+    @ExceptionHandler({AppException.class})
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> appExceptionHandler(AppException e){
+    	e.printStackTrace();
+        return Response.reply(e.getCode(), e.getMessage(), HttpStatus.FORBIDDEN); 
+    }
 
     @ExceptionHandler({CannotGetJdbcConnectionException.class, PersistenceException.class, SQLException.class, DataAccessException.class})
     @ResponseBody

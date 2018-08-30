@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import top.xuebiao.vo.Product;
+import top.xuebiao.common.Util;
 import top.xuebiao.dao.IProductMapper;
 
 @Service
@@ -49,6 +50,13 @@ public class ProductServiceImpl implements top.xuebiao.service.IProductService {
 			result = true;
 		}
 		return result;
+	}
+
+	@Override
+	public Product getProduct(int productID) {
+		Product product = new Product();
+		product.setId(productID);
+		return  productMapper.getProduct(product);
 	}
 
 }

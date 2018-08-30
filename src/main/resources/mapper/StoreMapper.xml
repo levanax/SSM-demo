@@ -13,4 +13,39 @@
 		store_tbl,product_tbl where
 		product_tbl.id=store_tbl.product_id order by product_tbl.id
 	</select>
+
+	<select id="getStore" resultType="top.xuebiao.vo.Store">
+		select
+		store_tbl.id,store_tbl.product_id as
+		'productID',store_tbl.total,store_tbl.remark,store_tbl.update_date as
+		'updateDate',
+		product_tbl.name as 'productName',product_tbl.spec as
+		'productSpec' from
+		store_tbl,product_tbl where
+		product_tbl.id=store_tbl.product_id order by product_tbl.id and store_tbl.product_id=#{store.productID}
+	</select>
+
+
+	<insert id="addStore" useGeneratedKeys="true"
+		keyProperty="store.id" parameterType="top.xuebiao.vo.Store">
+		insert into store_tbl(product_id,
+		total, remark)
+		VALUES(#{store.product_id}, #{store.total},
+		#{store.remark} )
+	</insert>
+
+	<update id="updateStore" keyProperty="store.id"
+		parameterType="top.xuebiao.vo.Store">
+		update store_tbl set total = #{store.total}, remark
+		=#{store.remark}
+	</update>
+
+
+	<insert id="addStoreRecord" useGeneratedKeys="true"
+		keyProperty="storeRecord.id"
+		parameterType="top.xuebiao.vo.StoreRecord">
+		INSERT INTO store_record_tbl(product_id, user_id,
+		instructions, quantity, price, remark)
+		VALUES(#{storeRecord.productID},#{storeRecord.userID},#{storeRecord.instuctions},#{storeRecord.quantity},#{storeRecord.price},#{storeRecord.remark})
+	</insert>
 </mapper>

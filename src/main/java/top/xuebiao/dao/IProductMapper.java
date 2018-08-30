@@ -11,6 +11,8 @@ import top.xuebiao.vo.Product;
 public interface IProductMapper {
 
 	List<Product> getProducts();
+
+	Product getProduct(@Param(value="product") Product product);
 	
 	int addProduct(@Param(value="product") Product product);
 	

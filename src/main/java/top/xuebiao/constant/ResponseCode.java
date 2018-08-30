@@ -16,4 +16,8 @@ public final class ResponseCode {
 	
 	public final static String R0001 = "R0001";
 	public static final String R0001_DESC ="货品添加不成功";
+	
+
+	public final static String R0002 = "R0002";
+	public static final String R0002_DESC ="出库失败，原因：库存不足";
 }
