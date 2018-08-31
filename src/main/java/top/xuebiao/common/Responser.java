@@ -19,4 +19,8 @@ public class Responser {
 	public static ResponseEntity<Object> success(Object o){
         return new ResponseEntity<>(new Response(o), HttpStatus.OK); 
     }
+
+	public static ResponseEntity<Object> success(Object o, HttpStatus httpStatus){
+        return new ResponseEntity<>(new Response(o), httpStatus); 
+    }
 }

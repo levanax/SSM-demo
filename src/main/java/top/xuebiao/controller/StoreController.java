@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -51,6 +52,6 @@ public class StoreController {
 	@RequestMapping(value="/records",method = RequestMethod.POST)
 	public ResponseEntity<Object> postStoreRecord(@Validated({StoreRecord.PostStoreRecord.class}) @RequestBody StoreRecord storeRecord) throws AppException{
 		StoreRecord result = storeService.addStoreRecord(storeRecord);
-		return Responser.success(result);
+		return Responser.success(result, HttpStatus.CREATED);
 	}
 }
