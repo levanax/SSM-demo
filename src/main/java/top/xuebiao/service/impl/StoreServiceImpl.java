@@ -45,7 +45,7 @@ public class StoreServiceImpl implements IStoreService {
 		store = storeMapper.getStore(store);
 		if (Util.isNull(store)) {
 			// new
-			if (StoreRecord.INSTUCTIONS_IMPORT.equals(storeRecord.getInstuctions())) {
+			if (StoreRecord.INSTRUCTIONS_IMPORT.equals(storeRecord.getInstructions())) {
 
 				int storeRecordRow = storeMapper.addStoreRecord(storeRecord);
 				if(storeRecordRow>0) {
@@ -63,11 +63,11 @@ public class StoreServiceImpl implements IStoreService {
 			}
 		} else {
 			// modify
-			switch(storeRecord.getInstuctions()) {
-			case StoreRecord.INSTUCTIONS_IMPORT:
+			switch(storeRecord.getInstructions()) {
+			case StoreRecord.INSTRUCTIONS_IMPORT:
 				store.setTotal(Util.add(store.getTotal(), storeRecord.getQuantity()));
 				break;
-			case StoreRecord.INSTUCTIONS_EXPORT:
+			case StoreRecord.INSTRUCTIONS_EXPORT:
 				Integer total = Util.minus(store.getTotal(), storeRecord.getQuantity());
 				if(total>0) {
 					store.setTotal(total);

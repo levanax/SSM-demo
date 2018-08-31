@@ -2,19 +2,25 @@ package top.xuebiao.vo;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class StoreRecord {
 	
-	public static final String INSTUCTIONS_IMPORT="import";
-	public static final String INSTUCTIONS_EXPORT="export";
+	public static final String INSTRUCTIONS_IMPORT="import";
+	public static final String INSTRUCTIONS_EXPORT="export";
 	
 	private Integer id;
 	private Integer productID;
 	private Integer userID;
+	
 	//入库/出库 import/export
-	private String instuctions;
+	private String instructions;
+	
 	private Integer quantity;
 	private double price;
 	private String remark;
+	
+	@JsonFormat(pattern ="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 	private Date updateDate;
 	
 	private String productName;
@@ -22,19 +28,6 @@ public class StoreRecord {
 	
 	public StoreRecord() {
 		super();
-	}
-
-	public StoreRecord(Integer id, Integer productID, Integer userID, String instuctions, Integer quantity,
-			double price, String remark, Date updateDate) {
-		super();
-		this.id = id;
-		this.productID = productID;
-		this.userID = userID;
-		this.instuctions = instuctions;
-		this.quantity = quantity;
-		this.price = price;
-		this.remark = remark;
-		this.updateDate = updateDate;
 	}
 	
 	public Integer getId() {
@@ -54,12 +47,6 @@ public class StoreRecord {
 	}
 	public void setUserID(Integer userID) {
 		this.userID = userID;
-	}
-	public String getInstuctions() {
-		return instuctions;
-	}
-	public void setInstuctions(String instuctions) {
-		this.instuctions = instuctions;
 	}
 	public Integer getQuantity() {
 		return quantity;
@@ -100,5 +87,13 @@ public class StoreRecord {
 
 	public void setProductName(String productName) {
 		this.productName = productName;
+	}
+
+	public String getInstructions() {
+		return instructions;
+	}
+
+	public void setInstructions(String instructions) {
+		this.instructions = instructions;
 	}
 }

@@ -2,6 +2,8 @@ package top.xuebiao.vo;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Store {
 
 	private Integer id;
@@ -10,6 +12,8 @@ public class Store {
 	private String productSpec;
 	private Integer total;
 	private String remark;
+
+	@JsonFormat(pattern ="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 	private Date updateDate;
 
 	public Integer getId() {

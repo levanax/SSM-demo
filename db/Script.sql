@@ -40,4 +40,4 @@ select store_tbl.id,store_tbl.product_id as 'productID',store_tbl.total,store_tb
 product_tbl.name as 'productName',product_tbl.spec as 'productSpec' from store_tbl,product_tbl where product_tbl.id=store_tbl.product_id order by product_tbl.id
 
 
-SELECT * from store_record_tbl as s left JOIN product_tbl as p on s.product_id=p.id WHERE s.product_id=1
+SELECT * from store_record_tbl as s left JOIN product_tbl as p on s.product_id=p.id WHERE s.product_id=1 order by s.update_date desc
