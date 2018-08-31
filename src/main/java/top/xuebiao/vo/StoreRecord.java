@@ -2,20 +2,28 @@ package top.xuebiao.vo;
 
 import java.util.Date;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class StoreRecord {
+	
+	public interface PostStoreRecord{}
 	
 	public static final String INSTRUCTIONS_IMPORT="import";
 	public static final String INSTRUCTIONS_EXPORT="export";
 	
 	private Integer id;
 	private Integer productID;
+
+	@Min(value=1,message = "userID not correct", groups = {PostStoreRecord.class})
 	private Integer userID;
 	
 	//入库/出库 import/export
 	private String instructions;
 	
+	@Max(value=Integer.MAX_VALUE)
 	private Integer quantity;
 	private double price;
 	private String remark;

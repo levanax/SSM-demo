@@ -2,6 +2,8 @@ package top.xuebiao.constant;
 
 public final class ResponseCode {
 
+	public final static String V0001 = "V0001";
+	
 	// 数据库有关
 	public final static String D0001 = "D0001";
 	public final static String D0001_DESC = "数据库错误";

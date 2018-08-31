@@ -8,22 +8,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import top.xuebiao.common.Responser;
 import top.xuebiao.service.IUserService;
-import top.xuebiao.vo.UserData;
 
 @CrossOrigin(origins = { "*" })
 @RequestMapping(value = "user")
@@ -43,19 +37,18 @@ public class UserController {
 	 */
 	@PostMapping(value = "/login")
 	@ResponseBody
-	public ResponseEntity<Map<String, Object>> login(@RequestBody Map<String, String> user) {
+	public ResponseEntity<Object> login(@RequestBody Map<String, String> user) {
 		String loginID = user.get("loginID");
 		String password = user.get("password");
 		logger.info(String.format(LOG_TEMPLATE_LOGIN, counter.incrementAndGet(), loginID, password));
-		Map<String, Object> r = new HashMap<String, Object>();
+		
 		boolean isSuccess = userService.login(loginID, password);
 		if (isSuccess) {
-			r.put("code", "ok");
-			UserData u = userService.getUserData(1);
-			System.out.print(u.getName());
+			Map<String, String> data = new HashMap<String, String>();
+			data.put("token", "token");
+			return Responser.success(data);
 		} else {
-			r.put("code", "L00001");
+			return Responser.reply("L0001", "loginID or password is incorrect", HttpStatus.BAD_REQUEST);
 		}
-		return new ResponseEntity<>(r, HttpStatus.OK);
 	}
 }
