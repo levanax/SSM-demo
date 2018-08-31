@@ -48,7 +48,7 @@ public class UserController {
 			data.put("token", "token");
 			return Responser.success(data);
 		} else {
-			return Responser.reply("L0001", "loginID or password is incorrect", HttpStatus.BAD_REQUEST);
+			return Responser.reply("L0001", "loginID or password is incorrect", HttpStatus.OK);
 		}
 	}
 }
