@@ -52,7 +52,7 @@
 		s.quantity,s.price ,s.remark,
 		s.update_date as 'updateDate', p.name as 'productName',
 		p.spec as 'productSpec' 
-		from store_record_tbl as s left JOIN product_tbl as p on s.product_id=p.id
+		from store_record_tbl as s left JOIN product_tbl as p on s.product_id=p.id   order by s.update_date desc
 	</select>
 	
 	<select id="getSingleProductStoreRecords" resultType="top.xuebiao.vo.StoreRecord">
