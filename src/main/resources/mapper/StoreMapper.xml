@@ -17,8 +17,8 @@
 		 store_tbl.id,store_tbl.product_id as 'productID',store_tbl.total,store_tbl.remark,store_tbl.update_date as 'updateDate',
 		 product_tbl.name as 'productName',product_tbl.spec as 'productSpec' 
 		 from
-		 store_tbl,product_tbl where
-		 product_tbl.id=store_tbl.product_id order by product_tbl.id and store_tbl.product_id=#{store.productID}
+		 store_tbl left JOIN product_tbl on
+		 product_tbl.id=store_tbl.product_id where store_tbl.product_id=#{store.productID} order by product_tbl.id 
 	</select>
 
 
