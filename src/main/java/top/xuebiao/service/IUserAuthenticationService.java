@@ -2,7 +2,7 @@ package top.xuebiao.service;
 
 import java.util.Optional;
 
-import top.xuebiao.security.User;
+import top.xuebiao.po.User;
 
 public interface IUserAuthenticationService {
 	  /**

@@ -10,7 +10,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import top.xuebiao.dao.IUserMapper;
-import top.xuebiao.security.User;
+import top.xuebiao.po.User;
 
 @Service
 public class UserServiceImpl implements top.xuebiao.service.IUserService {

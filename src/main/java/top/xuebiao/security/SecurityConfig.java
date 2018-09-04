@@ -28,7 +28,7 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	private static final RequestMatcher PUBLIC_URLS = new OrRequestMatcher(
-			// new AntPathRequestMatcher("/public/**")
+			new AntPathRequestMatcher("/public/**"),
 			new AntPathRequestMatcher("/user/login"));
 
 	private static final RequestMatcher PROTECTED_URLS = new NegatedRequestMatcher(PUBLIC_URLS);
@@ -42,9 +42,6 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(final AuthenticationManagerBuilder auth) {
-		System.out.println("'''''''''TAG1''''''''''''''''''");
-		System.out.println(provider);
-		System.out.println("'''''''''''''''''''''''''''");
 		auth.authenticationProvider(provider);
 	}
 

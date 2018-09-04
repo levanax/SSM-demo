@@ -1,4 +1,4 @@
-package top.xuebiao.security;
+package top.xuebiao.po;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;

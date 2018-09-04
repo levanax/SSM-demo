@@ -25,9 +25,7 @@ public final class TokenAuthenticationProvider extends AbstractUserDetailsAuthen
 	@Override
 	protected void additionalAuthenticationChecks(UserDetails userDetails,
 			UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
-		// TODO Auto-generated method stub
 		System.out.println("TokenAuthenticationProvider：additionalAuthenticationChecks...."+ userAuthenticationService);
-
 	}
 
 	@Override
