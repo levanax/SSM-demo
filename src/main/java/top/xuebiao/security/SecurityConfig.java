@@ -59,7 +59,8 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.defaultAuthenticationEntryPointFor(forbiddenEntryPoint(), PROTECTED_URLS).and()
 				.authenticationProvider(provider)
 				.addFilterBefore(restAuthenticationFilter(), AnonymousAuthenticationFilter.class).authorizeRequests()
-				.requestMatchers(PROTECTED_URLS).authenticated().and().csrf().disable().formLogin().disable()
+				// cors 
+				.requestMatchers(PROTECTED_URLS).authenticated().and().cors().and().csrf().disable().formLogin().disable()
 				.httpBasic().disable().logout().disable();
 	}
 
