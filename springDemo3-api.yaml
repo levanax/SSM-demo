@@ -9,7 +9,7 @@ info:
   license:
     name: "Apache 2.0"
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
-host: "192.168.7.128:8080"
+host: "192.168.7.128:8989"
 basePath: "/"
 tags:
 - name: "user"
@@ -57,7 +57,18 @@ paths:
         200:
           description: "successful operation"
           schema:
-            $ref: "#/definitions/Product"
+            type: "object"
+            required: 
+              - "code"
+              - "message"
+              - "data"
+            properties: 
+              code: 
+                type: "string"
+              message: 
+                type: "string"
+              data: 
+                $ref: "#/definitions/Product"
     post:
       tags:
       - "products"
@@ -70,11 +81,22 @@ paths:
         description: "add"
         required: true
         schema:
-          $ref: "#/definitions/Product"
+            type: "object"
+            required: 
+              - "code"
+              - "message"
+              - "data"
+            properties: 
+              code: 
+                type: "string"
+              message: 
+                type: "string"
+              data: 
+                $ref: "#/definitions/Product"
       responses:
         default:
           description: "successful operation"
-  /store:
+  /stores:
     get:
       tags:
       - "store"
@@ -86,7 +108,18 @@ paths:
         200:
           description: "successful operation"
           schema:
-            $ref: "#/definitions/Store"
+            type: "object"
+            required: 
+              - "code"
+              - "message"
+              - "data"
+            properties: 
+              code: 
+                type: "string"
+              message: 
+                type: "string"
+              data: 
+                $ref: "#/definitions/Stores"
           
   
 securityDefinitions:
@@ -124,20 +157,35 @@ definitions:
         type: 'string'
       remark:
         type: 'string'
+  Stores:
+    type: "array"
+    items:
+      $ref: "#/definitions/Store"
   Store:
     type: "object"
-    properties:
-      product_id:
-        type: "integer"
-        format: "int32"
-      total:
+    required: 
+    - "id"
+    - "productID"
+    - "productName"
+    - "productSpec"
+    - "total"
+    - "remark"
+    - "updateDate"
+    properties: 
+      id: 
+        type: "number"
+      productID: 
+        type: "number"
+      productName: 
         type: "string"
-      remark:
-        type: 'string'
-      update_date:
-        type: 'string'
-        description: '2019-09-09'
-  
+      productSpec: 
+        type: "string"
+      total: 
+        type: "number"
+      remark: 
+        type: "string"
+      updateDate: 
+        type: "string"
   ApiResponse:
     type: "object"
     properties:

@@ -2,6 +2,7 @@ package top.xuebiao.controller.user;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.slf4j.Logger;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import top.xuebiao.common.Responser;
+import top.xuebiao.service.IUserAuthenticationService;
 import top.xuebiao.service.IUserService;
 
 @CrossOrigin(origins = { "*" })
@@ -30,6 +32,9 @@ public class UserController {
 	@Autowired
 	private IUserService userService;
 	private static final String LOG_TEMPLATE_LOGIN = "counter%s - Login: loginID=%s,password=%s";
+	
+	@Autowired
+	IUserAuthenticationService userAuthenticationService;
 	/**
 	 * user login 登入请求
 	 * @param user
@@ -42,8 +47,9 @@ public class UserController {
 		String password = user.get("password");
 		logger.info(String.format(LOG_TEMPLATE_LOGIN, counter.incrementAndGet(), loginID, password));
 		
-		boolean isSuccess = userService.login(loginID, password);
-		if (isSuccess) {
+//		boolean isSuccess = userService.login(loginID, password);
+		Optional<String> userID = userAuthenticationService.login(loginID, password);
+		if (userID != null) {
 			Map<String, String> data = new HashMap<String, String>();
 			data.put("token", "token");
 			return Responser.success(data);
