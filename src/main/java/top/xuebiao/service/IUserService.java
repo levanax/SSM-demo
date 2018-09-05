@@ -2,11 +2,11 @@ package top.xuebiao.service;
 
 import java.util.Optional;
 
-import top.xuebiao.po.User;
+import top.xuebiao.po.UserDetail;
 
 public interface IUserService {
 
 	boolean login(String loginID, String password);
 
-	Optional<User> findByToken(String token);
+	Optional<UserDetail> findByToken(String token);
 }

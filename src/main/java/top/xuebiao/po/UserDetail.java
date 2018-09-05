@@ -11,7 +11,7 @@ import java.util.Collection;
 
 import static java.util.Objects.requireNonNull;
 
-public class User implements UserDetails {
+public class UserDetail implements UserDetails {
 	private static final long serialVersionUID = 2396654715019746670L;
 
 	String id;
@@ -19,7 +19,7 @@ public class User implements UserDetails {
 	String password;
 
 	@JsonCreator
-	public User(@JsonProperty("id") final String id, @JsonProperty("username") final String username,
+	public UserDetail(@JsonProperty("id") final String id, @JsonProperty("username") final String username,
 			@JsonProperty("password") final String password) {
 		super();
 		this.id = requireNonNull(id);

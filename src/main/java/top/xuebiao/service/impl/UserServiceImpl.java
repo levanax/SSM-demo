@@ -10,7 +10,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import top.xuebiao.dao.IUserMapper;
-import top.xuebiao.po.User;
+import top.xuebiao.po.UserDetail;
 
 @Service
 public class UserServiceImpl implements top.xuebiao.service.IUserService {
@@ -18,14 +18,14 @@ public class UserServiceImpl implements top.xuebiao.service.IUserService {
 	@Autowired
 	private IUserMapper userMapper;
 
-	Map<String, User> users = new HashMap<String, User>();
+	Map<String, UserDetail> userDetialMap = new HashMap<String, UserDetail>();
 	
 	
 	@Override
 	public boolean login(String loginID, String password) {
 		if(userMapper.login(loginID, password)) {
-			User user = new  User("1", "2", "3");
-			users.put("1", user);
+			UserDetail user = new  UserDetail("1", "2", "3");
+			userDetialMap.put("1", user);
 			return true;
 		}else {
 			return false;
@@ -33,11 +33,10 @@ public class UserServiceImpl implements top.xuebiao.service.IUserService {
 	}
 
 	@Override
-	public Optional<User> findByToken(String token) {
+	public Optional<UserDetail> findByToken(String token) {
 		System.out.print("--------------------");
 		System.out.print("----findByToken-------findByToken--------"+token);
 		System.out.print("--------------------");
-		// TODO Auto-generated method stub
-		return Optional.ofNullable(users.get("1"));
+		return Optional.ofNullable(userDetialMap.get("1"));
 	}
 }
