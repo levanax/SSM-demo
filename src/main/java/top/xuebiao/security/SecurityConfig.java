@@ -17,10 +17,16 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.NegatedRequestMatcher;
 import org.springframework.security.web.util.matcher.OrRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import static java.util.Objects.requireNonNull;
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
+
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -92,5 +98,23 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Bean
 	AuthenticationEntryPoint forbiddenEntryPoint() {
 		return new HttpStatusEntryPoint(FORBIDDEN);
+	}
+	
+	/**
+	 * ref: https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#cors
+	 * spring security @CrossOrigin setting
+	 * @return
+	 */
+	@Bean
+	CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration configuration = new CorsConfiguration();
+		configuration.setAllowedOrigins(Arrays.asList("*"));
+		configuration.setAllowedMethods(Arrays.asList("*"));
+		configuration.setAllowedHeaders(Arrays.asList("*"));
+		configuration.setAllowCredentials(true);
+		configuration.setExposedHeaders(Arrays.asList("Authorization","Content-Type"));
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", configuration);
+		return source;
 	}
 }
