@@ -10,28 +10,26 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import top.xuebiao.service.IUserAuthenticationService;
+import top.xuebiao.service.IAuthenticationService;
 
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 
 @Component
-public final class TokenAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
+public final class AppUserDetailsAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
 	
 	@NonNull
 	@Autowired
-	IUserAuthenticationService userAuthenticationService;
+	IAuthenticationService userAuthenticationService;
 
 	@Override
 	protected void additionalAuthenticationChecks(UserDetails userDetails,
 			UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
-		System.out.println("TokenAuthenticationProvider：additionalAuthenticationChecks...."+ userDetails);
 	}
 
 	@Override
 	protected UserDetails retrieveUser(String username, UsernamePasswordAuthenticationToken authentication)
 			throws AuthenticationException {
-		System.out.println("TokenAuthenticationProvider：retrieveUser...."+ userAuthenticationService);
 		final Object token = authentication.getCredentials();
 		return Optional
 			      .ofNullable(token)

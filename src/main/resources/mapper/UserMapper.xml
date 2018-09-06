@@ -3,4 +3,10 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.xuebiao.dao.IUserMapper">
+
+	<select id="queryRoles" resultType="String">
+		SELECT role_tbl.name from user_role_tbl left JOIN role_tbl 
+		on user_role_tbl.role_id = role_tbl.id 
+		WHERE user_role_tbl.user_id = #{userID}
+	</select>
 </mapper>

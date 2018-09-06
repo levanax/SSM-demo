@@ -41,3 +41,34 @@ product_tbl.name as 'productName',product_tbl.spec as 'productSpec' from store_t
 
 
 SELECT * from store_record_tbl as s left JOIN product_tbl as p on s.product_id=p.id WHERE s.product_id=1 order by s.update_date desc
+
+
+
+CREATE TABLE role_tbl(
+ id int(4) PRIMARY KEY auto_increment,
+ name VARCHAR(64) not null, #admin/user/guest
+ description VARCHAR(64) 
+)
+INSERT into role_tbl(name) VALUES('DBA')
+INSERT into role_tbl(name) VALUES('ADMIN');
+INSERT into role_tbl(name) VALUES('USER');
+
+
+INSERT into user_tbl(login_id, login_password) VALUES('admin','123456');
+
+
+CREATE TABLE user_role_tbl(
+ id int(4) PRIMARY KEY auto_increment,
+ user_id int(4) not null,
+ role_id int(4) not null,
+ description VARCHAR(64),
+ FOREIGN KEY (user_id) REFERENCES user_tbl(id),
+ FOREIGN KEY (role_id) REFERENCES role_tbl(id),
+  UNIQUE KEY (user_id,role_id)
+)
+
+INSERT into user_role_tbl(user_id, role_id) VALUES('2','2');
+
+SELECT role_tbl.name from user_role_tbl left JOIN role_tbl on user_role_tbl.role_id = role_tbl.id WHERE user_role_tbl.user_id = 2;
+
+

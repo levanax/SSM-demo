@@ -34,7 +34,7 @@ import java.util.Arrays;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-class SecurityConfig extends WebSecurityConfigurerAdapter {
+class AppSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
 	private static final RequestMatcher PUBLIC_URLS = new OrRequestMatcher(
 			new AntPathRequestMatcher("/public/**"),
@@ -42,18 +42,16 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	private static final RequestMatcher PROTECTED_URLS = new NegatedRequestMatcher(PUBLIC_URLS);
 
-	TokenAuthenticationProvider provider;
+	AppUserDetailsAuthenticationProvider provider;
 
-	SecurityConfig(final TokenAuthenticationProvider provider) {
+	AppSecurityConfigurer(final AppUserDetailsAuthenticationProvider provider) {
 		super();
 		this.provider = requireNonNull(provider);
 	}
 
-	@Autowired
-	UserDetailsService userDetailsService;
 	@Override
 	protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
-		auth.authenticationProvider(provider).userDetailsService(userDetailsService);
+		auth.authenticationProvider(provider);
 	}
 
 	@Override
@@ -69,7 +67,7 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 				// authenticated
 				.defaultAuthenticationEntryPointFor(forbiddenEntryPoint(), PROTECTED_URLS).and()
 
-				// role
+				// role config
 				.authorizeRequests().antMatchers(HttpMethod.PUT, "/products/{id}").hasRole("ADMIN")
 				.and()
 				.authorizeRequests().antMatchers(HttpMethod.DELETE, "/products/**").hasRole("ADMIN")
@@ -88,8 +86,8 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	@Bean
-	TokenAuthenticationFilter restAuthenticationFilter() throws Exception {
-		final TokenAuthenticationFilter filter = new TokenAuthenticationFilter(PROTECTED_URLS);
+	AppAuthenticationProcessingFilter restAuthenticationFilter() throws Exception {
+		final AppAuthenticationProcessingFilter filter = new AppAuthenticationProcessingFilter(PROTECTED_URLS);
 		filter.setAuthenticationManager(authenticationManager());
 		filter.setAuthenticationSuccessHandler(successHandler());
 		return filter;
@@ -106,7 +104,7 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 * Disable Spring boot automatic filter registration.
 	 */
 	@Bean
-	FilterRegistrationBean disableAutoRegistration(final TokenAuthenticationFilter filter) {
+	FilterRegistrationBean disableAutoRegistration(final AppAuthenticationProcessingFilter filter) {
 		final FilterRegistrationBean registration = new FilterRegistrationBean(filter);
 		registration.setEnabled(false);
 		return registration;

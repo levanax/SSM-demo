@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import top.xuebiao.common.Responser;
-import top.xuebiao.service.IUserAuthenticationService;
+import top.xuebiao.service.IAuthenticationService;
 import top.xuebiao.service.IUserService;
 
 @CrossOrigin(origins = { "*" })
@@ -29,12 +29,13 @@ public class UserController {
 
 	private final AtomicLong counter = new AtomicLong();
 
+	@SuppressWarnings("unused")
 	@Autowired
 	private IUserService userService;
 	private static final String LOG_TEMPLATE_LOGIN = "counter%s - Login: loginID=%s,password=%s";
 	
 	@Autowired
-	IUserAuthenticationService userAuthenticationService;
+	IAuthenticationService userAuthenticationService;
 	/**
 	 * user login 登入请求
 	 * @param user
@@ -47,11 +48,10 @@ public class UserController {
 		String password = user.get("password");
 		logger.info(String.format(LOG_TEMPLATE_LOGIN, counter.incrementAndGet(), loginID, password));
 		
-//		boolean isSuccess = userService.login(loginID, password);
-		Optional<String> userID = userAuthenticationService.login(loginID, password);
-		if (userID != null) {
+		Optional<String> token = userAuthenticationService.login(loginID, password);		
+		if (token.isPresent()) {
 			Map<String, String> data = new HashMap<String, String>();
-			data.put("token", "token");
+			data.put("token", token.get());
 			return Responser.success(data);
 		} else {
 			return Responser.reply("L0001", "loginID or password is incorrect", HttpStatus.OK);

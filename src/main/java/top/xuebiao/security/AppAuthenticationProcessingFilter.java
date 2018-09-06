@@ -18,10 +18,10 @@ import static java.util.Optional.ofNullable;
 import static org.apache.commons.lang3.StringUtils.removeStart;
 import static com.google.common.net.HttpHeaders.AUTHORIZATION;
 
-public final class TokenAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
+public final class AppAuthenticationProcessingFilter extends AbstractAuthenticationProcessingFilter {
 	private static final String BEARER = "Bearer";
 
-	protected TokenAuthenticationFilter(RequestMatcher requiresAuthenticationRequestMatcher) {
+	protected AppAuthenticationProcessingFilter(RequestMatcher requiresAuthenticationRequestMatcher) {
 		super(requiresAuthenticationRequestMatcher);
 	}
 
@@ -29,7 +29,7 @@ public final class TokenAuthenticationFilter extends AbstractAuthenticationProce
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
 			throws AuthenticationException, IOException, ServletException {
 
-		final String param = ofNullable(request.getHeader(AUTHORIZATION)).orElse(request.getParameter("t"));
+		final String param = ofNullable(request.getHeader(AUTHORIZATION)).orElse("");
 
 		final String token = ofNullable(param).map(value -> removeStart(value, BEARER)).map(String::trim)
 				.orElseThrow(() -> new BadCredentialsException("Missing Authentication Token"));
