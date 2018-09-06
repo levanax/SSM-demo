@@ -1,14 +1,17 @@
 package top.xuebiao.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.AnonymousAuthenticationFilter;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
@@ -46,9 +49,11 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 		this.provider = requireNonNull(provider);
 	}
 
+	@Autowired
+	UserDetailsService userDetailsService;
 	@Override
-	protected void configure(final AuthenticationManagerBuilder auth) {
-		auth.authenticationProvider(provider);
+	protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
+		auth.authenticationProvider(provider).userDetailsService(userDetailsService);
 	}
 
 	@Override
@@ -63,11 +68,23 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 				// yet
 				// authenticated
 				.defaultAuthenticationEntryPointFor(forbiddenEntryPoint(), PROTECTED_URLS).and()
+
+				// role
+				.authorizeRequests().antMatchers(HttpMethod.PUT, "/products").hasRole("ADMIN")
+				.and()
+				.authorizeRequests().antMatchers(HttpMethod.DELETE, "/products").hasRole("ADMIN")
+				.and()
+				//provider
 				.authenticationProvider(provider)
 				.addFilterBefore(restAuthenticationFilter(), AnonymousAuthenticationFilter.class).authorizeRequests()
+				
 				// cors 
-				.requestMatchers(PROTECTED_URLS).authenticated().and().cors().and().csrf().disable().formLogin().disable()
-				.httpBasic().disable().logout().disable();
+				.requestMatchers(PROTECTED_URLS).authenticated().and().cors().and().csrf().disable()
+				.formLogin().disable()
+				//http 认证
+				.httpBasic().realmName("TEST_REALM").authenticationEntryPoint(getBasicAuthEntryPoint())
+				//...
+				.and().logout().disable();
 	}
 
 	@Bean
@@ -112,9 +129,21 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 		configuration.setAllowedMethods(Arrays.asList("*"));
 		configuration.setAllowedHeaders(Arrays.asList("*"));
 		configuration.setAllowCredentials(true);
+		long maxAge = 60;
+		configuration.setMaxAge(maxAge);
 		configuration.setExposedHeaders(Arrays.asList("Authorization","Content-Type"));
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", configuration);
 		return source;
 	}
+	
+	/**
+	 * 认证
+	 * http://websystique.com/spring-security/secure-spring-rest-api-using-basic-authentication/
+	 * @return
+	 */
+	@Bean
+    public AppBasicAuthenticationEntryPoint getBasicAuthEntryPoint(){
+        return new AppBasicAuthenticationEntryPoint();
+    }
 }

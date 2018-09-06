@@ -4,10 +4,12 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import static java.util.Objects.requireNonNull;
 
@@ -30,7 +32,9 @@ public class UserDetail implements UserDetails {
 	@JsonIgnore
 	@Override
 	public Collection<GrantedAuthority> getAuthorities() {
-		return new ArrayList<>();
+		List<GrantedAuthority> result= new ArrayList<>();
+		result.add(new SimpleGrantedAuthority("USER"));
+		return result;
 	}
 
 	@JsonIgnore
