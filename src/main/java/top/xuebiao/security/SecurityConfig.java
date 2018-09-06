@@ -70,9 +70,9 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.defaultAuthenticationEntryPointFor(forbiddenEntryPoint(), PROTECTED_URLS).and()
 
 				// role
-				.authorizeRequests().antMatchers(HttpMethod.PUT, "/products").hasRole("ADMIN")
+				.authorizeRequests().antMatchers(HttpMethod.PUT, "/products/{id}").hasRole("ADMIN")
 				.and()
-				.authorizeRequests().antMatchers(HttpMethod.DELETE, "/products").hasRole("ADMIN")
+				.authorizeRequests().antMatchers(HttpMethod.DELETE, "/products/**").hasRole("ADMIN")
 				.and()
 				//provider
 				.authenticationProvider(provider)

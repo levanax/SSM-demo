@@ -33,7 +33,7 @@ public class UserDetail implements UserDetails {
 	@Override
 	public Collection<GrantedAuthority> getAuthorities() {
 		List<GrantedAuthority> result= new ArrayList<>();
-		result.add(new SimpleGrantedAuthority("USER"));
+		result.add(new SimpleGrantedAuthority("ADMIN"));
 		return result;
 	}
 

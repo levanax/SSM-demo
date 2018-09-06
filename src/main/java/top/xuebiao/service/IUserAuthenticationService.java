@@ -2,6 +2,8 @@ package top.xuebiao.service;
 
 import java.util.Optional;
 
+import org.springframework.security.core.userdetails.UserDetails;
+
 import top.xuebiao.po.UserDetail;
 
 public interface IUserAuthenticationService {
@@ -20,7 +22,7 @@ public interface IUserAuthenticationService {
 	   * @param token user dao key
 	   * @return
 	   */
-	  Optional<UserDetail> findByToken(String token);
+	  Optional<UserDetails> findByToken(String token);
 
 	  /**
 	   * Logs out the given input {@code user}.

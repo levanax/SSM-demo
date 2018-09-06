@@ -5,6 +5,8 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import top.xuebiao.po.UserDetail;
@@ -25,8 +27,10 @@ public class UserAuthenticationServiceImpl implements IUserAuthenticationService
 	}
 
 	@Override
-	public Optional<UserDetail> findByToken(String token) {
-		return userService.findByToken("1");
+	public Optional<UserDetails> findByToken(String token) {
+		UserDetails user = User.withUsername("1").password("123456").roles("USER").build();
+		
+		return Optional.ofNullable(user);
 	}
 
 	@Override

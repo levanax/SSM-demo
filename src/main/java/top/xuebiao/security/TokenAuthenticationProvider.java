@@ -25,7 +25,7 @@ public final class TokenAuthenticationProvider extends AbstractUserDetailsAuthen
 	@Override
 	protected void additionalAuthenticationChecks(UserDetails userDetails,
 			UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
-		System.out.println("TokenAuthenticationProvider：additionalAuthenticationChecks...."+ userAuthenticationService);
+		System.out.println("TokenAuthenticationProvider：additionalAuthenticationChecks...."+ userDetails);
 	}
 
 	@Override
@@ -36,6 +36,7 @@ public final class TokenAuthenticationProvider extends AbstractUserDetailsAuthen
 		return Optional
 			      .ofNullable(token)
 			      .map(String::valueOf)
+			      //查出的对象，同时会进行权限判断
 			      .flatMap(userAuthenticationService::findByToken)
 			      .orElseThrow(() -> new UsernameNotFoundException("Cannot find user with authentication token=" + token));
 	}
