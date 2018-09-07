@@ -71,4 +71,10 @@ INSERT into user_role_tbl(user_id, role_id) VALUES('2','2');
 
 SELECT role_tbl.name from user_role_tbl left JOIN role_tbl on user_role_tbl.role_id = role_tbl.id WHERE user_role_tbl.user_id = 2;
 
-
+CREATE TABLE api_tbl(
+ id int(4) PRIMARY KEY auto_increment,
+ api_name VARCHAR(64) not null,
+ api_method VARCHAR(64) not null,
+ api_link VARCHAR(64) not null,
+ description VARCHAR(64)
+)
