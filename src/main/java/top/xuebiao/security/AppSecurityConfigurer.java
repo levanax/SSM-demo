@@ -36,8 +36,7 @@ import java.util.Arrays;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 class AppSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
-	private static final RequestMatcher PUBLIC_URLS = new OrRequestMatcher(
-			new AntPathRequestMatcher("/public/**"),
+	private static final RequestMatcher PUBLIC_URLS = new OrRequestMatcher(new AntPathRequestMatcher("/public/**"),
 			new AntPathRequestMatcher("/user/login"));
 
 	private static final RequestMatcher PROTECTED_URLS = new NegatedRequestMatcher(PUBLIC_URLS);
@@ -61,6 +60,8 @@ class AppSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(final HttpSecurity http) throws Exception {
+		String[] putAntPatternsByAdmin = { "/products/{id}" };
+		String[] deleteAntPatternsByAdmin = { "/products/**" };
 		http.sessionManagement().sessionCreationPolicy(STATELESS).and().exceptionHandling()
 				// this entry point handles when you request a protected page and you are not
 				// yet
@@ -68,20 +69,18 @@ class AppSecurityConfigurer extends WebSecurityConfigurerAdapter {
 				.defaultAuthenticationEntryPointFor(forbiddenEntryPoint(), PROTECTED_URLS).and()
 
 				// role config
-				.authorizeRequests().antMatchers(HttpMethod.PUT, "/products/{id}").hasRole("ADMIN")
-				.and()
-				.authorizeRequests().antMatchers(HttpMethod.DELETE, "/products/**").hasRole("ADMIN")
-				.and()
-				//provider
+				.authorizeRequests().antMatchers(HttpMethod.PUT, putAntPatternsByAdmin).hasRole("ADMIN").and()
+				.authorizeRequests().antMatchers(HttpMethod.DELETE, deleteAntPatternsByAdmin).hasRole("ADMIN").and()
+				// provider
 				.authenticationProvider(provider)
 				.addFilterBefore(restAuthenticationFilter(), AnonymousAuthenticationFilter.class).authorizeRequests()
-				
-				// cors 
-				.requestMatchers(PROTECTED_URLS).authenticated().and().cors().and().csrf().disable()
-				.formLogin().disable()
-				//http 认证
+
+				// cors
+				.requestMatchers(PROTECTED_URLS).authenticated().and().cors().and().csrf().disable().formLogin()
+				.disable()
+				// http 认证
 				.httpBasic().realmName("TEST_REALM").authenticationEntryPoint(getBasicAuthEntryPoint())
-				//...
+				// ...
 				.and().logout().disable();
 	}
 
@@ -114,10 +113,12 @@ class AppSecurityConfigurer extends WebSecurityConfigurerAdapter {
 	AuthenticationEntryPoint forbiddenEntryPoint() {
 		return new HttpStatusEntryPoint(FORBIDDEN);
 	}
-	
+
 	/**
-	 * ref: https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#cors
+	 * ref:
+	 * https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#cors
 	 * spring security @CrossOrigin setting
+	 * 
 	 * @return
 	 */
 	@Bean
@@ -129,19 +130,20 @@ class AppSecurityConfigurer extends WebSecurityConfigurerAdapter {
 		configuration.setAllowCredentials(true);
 		long maxAge = 60;
 		configuration.setMaxAge(maxAge);
-		configuration.setExposedHeaders(Arrays.asList("Authorization","Content-Type"));
+		configuration.setExposedHeaders(Arrays.asList("Authorization", "Content-Type"));
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", configuration);
 		return source;
 	}
-	
+
 	/**
 	 * 认证
 	 * http://websystique.com/spring-security/secure-spring-rest-api-using-basic-authentication/
+	 * 
 	 * @return
 	 */
 	@Bean
-    public AppBasicAuthenticationEntryPoint getBasicAuthEntryPoint(){
-        return new AppBasicAuthenticationEntryPoint();
-    }
+	public AppBasicAuthenticationEntryPoint getBasicAuthEntryPoint() {
+		return new AppBasicAuthenticationEntryPoint();
+	}
 }
