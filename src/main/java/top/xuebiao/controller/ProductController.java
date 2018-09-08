@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -66,6 +66,7 @@ public class ProductController {
 
 	/**
 	 */
+	@RequiresRoles("admin")
 	@RequestMapping(value="/{id}",method = RequestMethod.PUT)
 	public ResponseEntity<Object> putProduct(@RequestBody Product product, @PathVariable  int id) {
 		product.setId(id);

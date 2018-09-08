@@ -6,6 +6,9 @@ import java.util.Map;
 import javax.validation.UnexpectedTypeException;
 
 import org.apache.ibatis.exceptions.PersistenceException;
+import org.apache.shiro.authz.AuthorizationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import top.xuebiao.common.Responser;
 import top.xuebiao.constant.ResponseCode;
+import top.xuebiao.controller.user.UserController;
 
 /**
  * 异常处理
@@ -26,6 +30,7 @@ import top.xuebiao.constant.ResponseCode;
 @ControllerAdvice
 public class CommonExceptionHandler {
 
+	Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @ExceptionHandler({AppException.class})
     @ResponseBody
@@ -39,6 +44,13 @@ public class CommonExceptionHandler {
     public ResponseEntity<Object> persistenceExceptionHandler(Exception e){
     	e.printStackTrace();
         return Responser.error(ResponseCode.D0001,  ResponseCode.D0001_DESC); 
+    }
+
+    @ExceptionHandler(AuthorizationException.class)
+    @ResponseBody
+    public ResponseEntity<Object> authorizationExceptionHandler(AuthorizationException e) {
+    	logger.debug("AuthorizationException was thrown", e);
+        return Responser.reply(ResponseCode.V0001, "no message able.", HttpStatus.BAD_REQUEST); 
     }
     
     @ExceptionHandler(MethodArgumentNotValidException.class)
