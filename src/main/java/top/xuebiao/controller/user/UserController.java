@@ -1,9 +1,14 @@
 package top.xuebiao.controller.user;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.Subject;
+import org.apache.shiro.util.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +46,8 @@ public class UserController {
 		String loginID = user.get("loginID");
 		String password = user.get("password");
 		logger.info(String.format(LOG_TEMPLATE_LOGIN, counter.incrementAndGet(), loginID, password));
-		
+
+        String name = "World";
 		boolean isSuccess = userService.login(loginID, password);
 		if (isSuccess) {
 			Map<String, String> data = new HashMap<String, String>();
