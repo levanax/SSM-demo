@@ -33,7 +33,7 @@
 	<update id="updateStore" keyProperty="store.id"
 		parameterType="top.xuebiao.vo.Store">
 		update store_tbl set total = #{store.total}, remark
-		=#{store.remark}
+		=#{store.remark} where product_id = #{store.productID}
 	</update>
 
 

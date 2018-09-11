@@ -78,3 +78,5 @@ CREATE TABLE api_tbl(
  api_link VARCHAR(64) not null,
  description VARCHAR(64)
 )
+
+select id from user_tbl where login_id = 10 and login_password = 10
