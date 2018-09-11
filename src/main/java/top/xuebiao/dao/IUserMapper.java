@@ -16,7 +16,7 @@ public interface IUserMapper {
 	 * @return userID
 	 */
 	@Select("select id from user_tbl where login_id = #{loginID} and login_password = #{password}")
-	int login(@Param("loginID") String loginID,@Param("password") String password);
+	Integer login(@Param("loginID") String loginID,@Param("password") String password);
 	
 	List<String> queryRoles(@Param("userID") int userID);
 	

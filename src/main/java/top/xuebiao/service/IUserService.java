@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface IUserService {
 
-	int login(String loginID, String password);
+	Integer login(String loginID, String password);
 
 	List<String> queryRoles(int userID);
 

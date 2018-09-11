@@ -16,7 +16,7 @@ public class UserServiceImpl implements top.xuebiao.service.IUserService {
 	private IUserMapper userMapper;
 
 	@Override
-	public int login(String loginID, String password) {
+	public Integer login(String loginID, String password) {
 		return userMapper.login(loginID, password);
 	}
 

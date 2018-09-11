@@ -34,7 +34,7 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 	@Override
 	public Optional<String> login(String username, String password) {
 		String token = null;
-		int userID = userService.login(username, password);
+		Integer userID = userService.login(username, password);
 		if(Util.isNotNull(userID)) {
 		    String uuid = UUID.randomUUID().toString();
 		    token = uuid + username;
