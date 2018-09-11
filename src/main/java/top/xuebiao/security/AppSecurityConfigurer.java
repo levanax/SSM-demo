@@ -48,6 +48,9 @@ class AppSecurityConfigurer extends WebSecurityConfigurerAdapter {
 		this.provider = requireNonNull(provider);
 	}
 
+	/**
+	 * 配置 认证服务
+	 */
 	@Override
 	protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
 		auth.authenticationProvider(provider);
@@ -58,6 +61,11 @@ class AppSecurityConfigurer extends WebSecurityConfigurerAdapter {
 		web.ignoring().requestMatchers(PUBLIC_URLS);
 	}
 
+	/**
+	 * 配置 spring security ，url 权限分配
+	 * 跨域设置 .cors()
+	 * 
+	 */
 	@Override
 	protected void configure(final HttpSecurity http) throws Exception {
 		String[] putAntPatternsByAdmin = { "/products/{id}" };

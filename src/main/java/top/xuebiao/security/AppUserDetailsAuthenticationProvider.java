@@ -27,6 +27,9 @@ public final class AppUserDetailsAuthenticationProvider extends AbstractUserDeta
 			UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
 	}
 
+	/**
+	 * 根据token 查出 user对象，提供给spring security 以验证权限
+	 */
 	@Override
 	protected UserDetails retrieveUser(String username, UsernamePasswordAuthenticationToken authentication)
 			throws AuthenticationException {
