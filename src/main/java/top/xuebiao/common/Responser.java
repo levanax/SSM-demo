@@ -5,6 +5,11 @@ import org.springframework.http.ResponseEntity;
 
 import top.xuebiao.vo.Response;
 
+/**
+ * 响应客户端类
+ * @author levana.xue
+ *
+ */
 public class Responser {
 	
 
@@ -20,6 +25,12 @@ public class Responser {
         return new ResponseEntity<>(new Response(o), HttpStatus.OK); 
     }
 
+	/**
+	 * 请求执行成功时，用于回复客户端
+	 * @param o 响应对象
+	 * @param httpStatus 响应状态码
+	 * @return object
+	 */
 	public static ResponseEntity<Object> success(Object o, HttpStatus httpStatus){
         return new ResponseEntity<>(new Response(o), httpStatus); 
     }
